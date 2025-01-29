@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage, loadMessageInStore } from "../Store/Slices/MessagesSlice";
+import { addChannel } from "../Store/Slices/InformationOfChannelsSlice";
 
 const WebSocketContext = createContext();
 
@@ -31,6 +32,8 @@ export const WebSocketProvider = ({ children }) => {
       const data = JSON.parse(event.data);
       if (data.type === "messagesFetched") {
         dispatch(loadMessageInStore(data.payload));
+      } else if (data.type === "newChannel") {
+        dispatch(addChannel(data.payload));
       } else if (data.type === "newMessage") {
         dispatch(addMessage(data.payload));
       } else if (data.error) {

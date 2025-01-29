@@ -3,7 +3,7 @@ import styles from './HeaderWorkspaceMessage.module.css'
 import imageExtensionChannelInformation from "../../../../../Images/ExtensionChannel.svg"
 
 export function HeaderWorkspaceMessage({ setExtensionButton, extensionButton }) {
-  const channelName = useSelector((state) => state.informationOfChannels.dialedChannel)
+  const channelName = useSelector((state) => state.informationOfChannels.currentChannel)
   
   const handleClick = () => {
     if (extensionButton) {

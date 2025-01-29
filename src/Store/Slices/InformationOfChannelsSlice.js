@@ -18,14 +18,19 @@ const informationOfChannelsSlice = createSlice({
     },
     loadChannelsUserInStore(state, action) {
       state.channelsUser = action.payload;
-    }
+    },
+    addChannel(state, action) {
+      state.channels.push(action.payload)
+      state.channelsUser.push(action.payload)
+    },
   },
 });
 
 export const {
   loadChannelsInStore,
   loadCurrentChannelInStore,
-  loadChannelsUserInStore
+  loadChannelsUserInStore,
+  addChannel,
 } = informationOfChannelsSlice.actions;
 
 export default informationOfChannelsSlice.reducer;
