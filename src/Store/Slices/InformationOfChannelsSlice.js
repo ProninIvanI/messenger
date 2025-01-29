@@ -4,6 +4,7 @@ const initialState = {
   channels: null,
   currentChannel: null,
   channelsUser: null,
+  usersCurrentChannel: null,
 };
 
 const informationOfChannelsSlice = createSlice({
@@ -23,6 +24,9 @@ const informationOfChannelsSlice = createSlice({
       state.channels.push(action.payload)
       state.channelsUser.push(action.payload)
     },
+    loadUsersCurrentChannelInStore(state, action) {
+      state.usersCurrentChannel = action.payload;
+    }
   },
 });
 
@@ -31,6 +35,7 @@ export const {
   loadCurrentChannelInStore,
   loadChannelsUserInStore,
   addChannel,
+  loadUsersCurrentChannelInStore,
 } = informationOfChannelsSlice.actions;
 
 export default informationOfChannelsSlice.reducer;

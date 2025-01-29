@@ -13,8 +13,18 @@
 }
 
 .button {
+  position: relative;
+
   border: none;
   background-color: transparent;
   margin-right: 15px;
   cursor: pointer;
+
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+}
+
+.rightPartHeader{
+  display: flex;
 }

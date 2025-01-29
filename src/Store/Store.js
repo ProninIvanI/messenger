@@ -3,6 +3,7 @@ import userReducer from "./Slices/UserSlice.js";
 import messagesReducer from "./Slices/MessagesSlice.js";
 import dialedMessageReducer from "./Slices/DialedMessageSlice.js";
 import InformationOfChannelsSliceReducer from "./Slices/InformationOfChannelsSlice.js";
+import usersSliceReducer from "./Slices/UsersSlice.js"
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     messages: messagesReducer,
     dialedMessage: dialedMessageReducer,
     informationOfChannels: InformationOfChannelsSliceReducer,
+    users: usersSliceReducer,
   },
 });
 

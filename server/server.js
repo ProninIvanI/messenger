@@ -160,6 +160,23 @@ app.get("/userChannels/:login", async (req, res) => {
   res.send(userChannels);
 });
 
+app.get("/usersCurrentChannel", async (req, res) => {
+  const channelName = req.query.name;
+  const channelsRef = db.ref("channels");
+  const snapshot = await channelsRef.once("value");
+
+  const users = [];
+
+  snapshot.forEach((child) => {
+    const channel = child.val();
+    if (channel.name === channelName) {
+      users.push(...channel.members);
+    }
+  });
+
+  res.send(users);
+});
+
 app.post("/channels", async (req, res) => {
   const { channelName, creator } = req.body;
   if (!channelName || !creator) {
@@ -194,3 +211,4 @@ app.post("/channels", async (req, res) => {
 
   res.send({ message: 'Channel created successfully', channel: newChannel });
 });
+
