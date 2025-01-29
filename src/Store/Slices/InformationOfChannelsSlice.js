@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   channels: null,
   currentChannel: null,
+  channelsUser: null,
 };
 
 const informationOfChannelsSlice = createSlice({
@@ -15,12 +16,16 @@ const informationOfChannelsSlice = createSlice({
     loadCurrentChannelInStore(state, action) {
       state.currentChannel = action.payload;
     },
+    loadChannelsUserInStore(state, action) {
+      state.channelsUser = action.payload;
+    }
   },
 });
 
 export const {
   loadChannelsInStore,
-  loadCurrentChannelInStore
+  loadCurrentChannelInStore,
+  loadChannelsUserInStore
 } = informationOfChannelsSlice.actions;
 
 export default informationOfChannelsSlice.reducer;

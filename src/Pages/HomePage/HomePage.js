@@ -4,10 +4,10 @@ import { ListChannel } from "../../Components/Home/Workspace/ListChannel/ListCha
 import { Workspace } from "../../Components/Home/Workspace/Workspace/Workspace";
 import { WorkspaceMessage } from "../../Components/Home/Workspace/WorkspaceMessage/WorkspaceMessage/WorkspaceMessage";
 import { useWebSocket } from "../../Hooks/WebSocketContext";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   loadChannelsInStore,
-  loadCurrentChannelInStore,
+  loadChannelsUserInStore
 } from "../../Store/Slices/InformationOfChannelsSlice";
 import axios from "axios";
 import { Toolbar } from "../../Components/Home/Workspace/Toolbar/Toolbar";
@@ -17,13 +17,17 @@ import { WorkspaceCreateChannel } from "../../Components/Home/Workspace/Workspac
 export function HomePage() {
   const dispatch = useDispatch();
   const [selectionWorkspace, setSelectionWorkspace] = useState("channels");
+  const user = useSelector((state) => state.user.user)
   const { init } = useWebSocket();
   const initHomePage = async () => {
     const responseListChannel = await axios.get(
       "http://localhost:3000/channels"
     );
     dispatch(loadChannelsInStore(responseListChannel.data));
-    // dispatch(loadDialedChannelInStore(responseListChannel.data[0].name));
+    const responseListChannelsUser = await axios.get(
+      `http://localhost:3000/userChannels/${user}`
+    );
+    dispatch(loadChannelsUserInStore(responseListChannelsUser.data))
   };
 
   useEffect(() => {

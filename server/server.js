@@ -142,3 +142,55 @@ app.get("/channels", async (req, res) => {
   });
   res.send(channelNames);
 });
+
+app.get("/userChannels/:login", async (req, res) => {
+  const { login } = req.params;
+  const channelsRef = db.ref("channels");
+  const snapshot = await channelsRef.once("value");
+  
+  const userChannels = [];
+  
+  snapshot.forEach((child) => {
+    const channel = child.val();
+    if (channel.members && channel.members.includes(login)) {
+      userChannels.push({ name: channel.name });
+    }
+  });
+
+  res.send(userChannels);
+});
+
+app.post("/channels", async (req, res) => {
+  const { channelName, creator } = req.body;
+  if (!channelName || !creator) {
+    return res.status(400).send({ error: 'Channel name and creator are required' });
+  }
+
+  const channelsRef = db.ref('channels');
+  const snapshot = await channelsRef.child(channelName).once('value');
+
+  if (snapshot.exists()) {
+    return res.status(400).send({ error: 'Channel already exists' });
+  }
+
+  const newChannel = {
+    creator: creator,
+    members: [creator],
+    messages: [],
+    name: channelName,
+  };
+
+  await channelsRef.child(channelName).set(newChannel);
+
+  // Уведомляем всех подключенных клиентов о новом канале
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({
+        type: "newChannel",
+        payload: newChannel
+      }));
+    }
+  });
+
+  res.send({ message: 'Channel created successfully', channel: newChannel });
+});
