@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+
+  border-bottom: 1px solid black;
+}
+
+.channelName {
+  margin-left: 15px;
+  font-size: 25px;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  margin-right: 15px;
+  cursor: pointer;
+}

@@ -1,0 +1,12 @@
+.container {
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+  height: 45px;
+
+  border: 1px solid black;
+  border-radius: 15px;
+  margin: 5px;
+
+  background-color: transparent;
+}
