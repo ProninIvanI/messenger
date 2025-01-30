@@ -24,7 +24,7 @@ export function WorkspaceMessage() {
               <AreaVisionMessage />
               <AreaInputMessage />
             </div>
-            {extensionButton && <ExtensionChannelInformation />}
+            {extensionButton && <ExtensionChannelInformation nameCurrentChannel={currentChannel}/>}
           </div>
         </>
       ) : (

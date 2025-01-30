@@ -14,3 +14,40 @@
 
   font-size: 20px;
 }
+
+.nameUser {
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+.containerUser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+  height: 30px;
+}
+
+.containerUser:hover {
+  background-color: rgba(157, 141, 122, 0.5);
+}
+
+.markAdmin {
+  margin-right: 5px;
+  font-size: 13px;
+  color: rgb(75, 75, 75);
+}
+
+.buttonDeleteUser {
+  display: flex;
+  margin-right: 5px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.buttonDeleteUser:hover{
+  background-color: blanchedalmond
+}

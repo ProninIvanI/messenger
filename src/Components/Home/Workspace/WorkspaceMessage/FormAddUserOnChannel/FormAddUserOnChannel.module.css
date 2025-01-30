@@ -11,3 +11,36 @@
   position: absolute;
   right: 65px;
 }
+
+.containerUser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+  height: 30px;
+}
+
+.nameUser {
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+.markUserChannel {
+  margin-right: 5px;
+  font-size: 13px;
+  color: rgb(75, 75, 75);
+}
+
+.containerUser:hover {
+  background-color: rgba(157, 141, 122, 0.5);
+}
+
+.buttonAddUser {
+  display: flex;
+  margin-right: 5px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+}

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useWebSocket } from "../../../../../Hooks/WebSocketContext";
 import styles from "./ButtonChannel.module.css";
-import { loadCurrentChannelInStore, loadUsersCurrentChannelInStore } from "../../../../../Store/Slices/InformationOfChannelsSlice";
+import { loadAdminCurrentChannel, loadCurrentChannelInStore, loadUsersCurrentChannelInStore } from "../../../../../Store/Slices/InformationOfChannelsSlice";
 import axios from "axios";
 
 export function ButtonChannel({ name }) {
@@ -11,6 +11,11 @@ export function ButtonChannel({ name }) {
   const loadUsers = async () => {
     const responseLoadUsers = await axios.get(`http://localhost:3000/usersCurrentChannel?name=${name}`);
     dispatch(loadUsersCurrentChannelInStore(responseLoadUsers.data))
+  }
+
+  const loadAdmin = async () => {
+    const responseLoadAdmin = await axios.get(`http://localhost:3000/adminCurrentChannel?name=${name}`)
+    dispatch(loadAdminCurrentChannel(responseLoadAdmin.data))
   }
 
   const handleClick = async () => {
@@ -23,6 +28,7 @@ export function ButtonChannel({ name }) {
       );
     }
     loadUsers();
+    loadAdmin();
     dispatch(loadCurrentChannelInStore(name));
   }
 
