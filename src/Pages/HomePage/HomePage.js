@@ -13,7 +13,7 @@ import axios from "axios";
 import { Toolbar } from "../../Components/Home/Workspace/Toolbar/Toolbar";
 import { WorkspaceProfile } from "../../Components/Home/Workspace/WorkspaceProfile/WorkspaceProfile/WorkspaceProfile";
 import { WorkspaceCreateChannel } from "../../Components/Home/Workspace/WorkspaceCreateChannel/WorkspaceCreateChannel/WorkspaceCreateChannel";
-import { loadListUsers } from "../../Store/Slices/UsersSlice";
+import { loadListFilterUsers, loadListUsers } from "../../Store/Slices/UsersSlice";
 
 export function HomePage() {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ export function HomePage() {
       `http://localhost:3000/usersMessenger?name=${user}`
     );
     dispatch(loadListUsers(responseListAllUsers.data));
+    dispatch(loadListFilterUsers(responseListAllUsers.data));
   };
 
   useEffect(() => {

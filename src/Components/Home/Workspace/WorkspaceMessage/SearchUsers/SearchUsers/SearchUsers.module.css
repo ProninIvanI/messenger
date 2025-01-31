@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: rgb(200, 180, 155);
+}
+
+.buttonSearch {
+  display: flex;
+  margin-right: 5px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.buttonSearch:hover{
+  background-color: blanchedalmond
+}
+
+.input {
+  height: 30px;
+  flex-grow: 1;
+  margin-left: 3px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
