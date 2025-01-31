@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import styles from "./FormAddUserOnChannel.module.css";
 import circleAdd from "../../../../../Images/CircleAdd.svg";
 import axios from "axios";
-import { Search } from "../Search/Search/Search";
+import { Search } from "../../Search/Search/Search";
 import { useState } from "react";
 
 export function FormAddUserOnChannel() {

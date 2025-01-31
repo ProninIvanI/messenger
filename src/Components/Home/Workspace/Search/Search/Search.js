@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./Search.module.css";
-import imageLoupe from "../../../../../../Images/Loupe.svg";
+import imageLoupe from "../../../../../Images/Loupe.svg";
 import { useDispatch } from "react-redux";
-import { loadSearchUserOnChannel } from "../../../../../../Store/Slices/SearchSlice";
+import { loadSearchUserOnChannel } from "../../../../../Store/Slices/SearchSlice";
 
 export function Search({
   array,

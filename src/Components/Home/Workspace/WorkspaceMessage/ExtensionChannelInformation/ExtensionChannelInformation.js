@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import styles from "./ExtensionChannelInformation.module.css";
 import userDelete from "../../../../../Images/PersonDelete.svg";
 import axios from "axios";
-import { Search } from "../Search/Search/Search";
+import { Search } from "../../Search/Search/Search";
 import { useState } from "react";
 
 export function ExtensionChannelInformation({ nameCurrentChannel }) {
