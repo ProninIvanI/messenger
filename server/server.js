@@ -140,7 +140,7 @@ app.get("/channels", async (req, res) => {
   const snapshot = await channelsRef.once("value");
   const channelNames = [];
   snapshot.forEach((child) => {
-    channelNames.push({ name: child.val().name });
+    channelNames.push(child.val().name );
   });
   res.send(channelNames);
 });
@@ -155,7 +155,7 @@ app.get("/userChannels/:login", async (req, res) => {
   snapshot.forEach((child) => {
     const channel = child.val();
     if (channel.members && channel.members.includes(login)) {
-      userChannels.push({ name: channel.name });
+      userChannels.push(channel.name );
     }
   });
 

@@ -3,3 +3,11 @@
   background-color: blanchedalmond;
   border-right: 1px solid black;
 }
+
+.containerSearch {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+}

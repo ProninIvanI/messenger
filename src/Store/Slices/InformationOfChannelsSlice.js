@@ -4,6 +4,7 @@ const initialState = {
   channels: null,
   currentChannel: null,
   channelsUser: null,
+  sortedChannelsUser: null,
   usersCurrentChannel: null,
   adminCurrentChannel: null,
   sortedListUsersCurrentChannel: null,
@@ -21,6 +22,9 @@ const informationOfChannelsSlice = createSlice({
     },
     loadChannelsUserInStore(state, action) {
       state.channelsUser = action.payload;
+    },
+    loadSortedChannelsUserInStore(state, action) {
+      state.sortedChannelsUser = action.payload;
     },
     addChannel(state, action) {
       state.channels.push(action.payload)
@@ -54,6 +58,7 @@ export const {
   loadAdminCurrentChannel,
   deleteUserOnChannel,
   loadSortedListUsersCurrentChannel,
+  loadSortedChannelsUserInStore,
 } = informationOfChannelsSlice.actions;
 
 export default informationOfChannelsSlice.reducer;

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import styles from "./ExtensionChannelInformation.module.css";
 import userDelete from "../../../../../Images/PersonDelete.svg";
 import axios from "axios";
-import { SearchUsers } from "../SearchUsers/SearchUsers/SearchUsers";
+import { Search } from "../Search/Search/Search";
 import { useState } from "react";
 
 export function ExtensionChannelInformation({ nameCurrentChannel }) {
@@ -33,11 +33,12 @@ export function ExtensionChannelInformation({ nameCurrentChannel }) {
   return (
     <div className={styles.extensionChannelInformation}>
       <div className={styles.headerInformationChannel}>information channel</div>
-      <SearchUsers
-        usersArray={usersChannel}
+      <Search
+        array={usersChannel}
         currentSearch={currentSearch}
-        sortedUsers={sortedUsersChannel}
-        setSortedUsers={setSortedUsersChannel}
+        sortedArray={sortedUsersChannel}
+        setSortedArray={setSortedUsersChannel}
+        placeholder={"введите имя"}
       />
       {sortedUsersChannel.map((user) => {
         return (

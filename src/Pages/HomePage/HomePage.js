@@ -7,7 +7,8 @@ import { useWebSocket } from "../../Hooks/WebSocketContext";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadChannelsInStore,
-  loadChannelsUserInStore
+  loadChannelsUserInStore,
+  loadSortedChannelsUserInStore
 } from "../../Store/Slices/InformationOfChannelsSlice";
 import axios from "axios";
 import { Toolbar } from "../../Components/Home/Workspace/Toolbar/Toolbar";
@@ -29,6 +30,7 @@ export function HomePage() {
       `http://localhost:3000/userChannels/${user}`
     );
     dispatch(loadChannelsUserInStore(responseListChannelsUser.data))
+    dispatch(loadSortedChannelsUserInStore(responseListChannelsUser.data))
     const responseListAllUsers = await axios.get(
       `http://localhost:3000/usersMessenger?name=${user}`
     );
