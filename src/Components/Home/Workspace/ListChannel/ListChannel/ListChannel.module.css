@@ -23,6 +23,15 @@
 .button {
   margin: 5px;
   border: 1px solid black;
+  background-color: transparent;
 
   cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(200, 180, 155);
+}
+
+.buttonCheck {
+  background-color: rgb(200, 180, 155);
 }

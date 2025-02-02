@@ -3,9 +3,11 @@ import send from "../../../../../Images/Send.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { current } from "@reduxjs/toolkit";
 
 export function ButtonSend({ setInputValue }) {
   const author = useSelector((state) => state.user.user);
+  const currentChannel = useSelector((state) => state.informationOfChannels.currentChannel)
   const dialedMessage = useSelector(
     (state) => state.dialedMessage.dialedMessage
   );
@@ -14,7 +16,7 @@ export function ButtonSend({ setInputValue }) {
     await axios.post("http://localhost:3000/messages", {
       senderId: author[0],
       text: dialedMessage,
-      channelName: "general",
+      channelName: currentChannel,
     });
   };
 

@@ -140,7 +140,7 @@ app.get("/channels", async (req, res) => {
   const snapshot = await channelsRef.once("value");
   const channelNames = [];
   snapshot.forEach((child) => {
-    channelNames.push(child.val().name );
+    channelNames.push(child.val().name);
   });
   res.send(channelNames);
 });
@@ -155,7 +155,7 @@ app.get("/userChannels/:login", async (req, res) => {
   snapshot.forEach((child) => {
     const channel = child.val();
     if (channel.members && channel.members.includes(login)) {
-      userChannels.push(channel.name );
+      userChannels.push(channel.name);
     }
   });
 
@@ -281,6 +281,63 @@ app.post("/deleteUserWithChannel", async (req, res) => {
   });
 });
 
+app.post("/addChannel", async (req, res) => {
+  const { user, channel } = req.body;
+  const channelsRef = db.ref("channels");
+  const snapshot = await channelsRef.once("value");
+
+  snapshot.forEach((child) => {
+    const channelData = child.val();
+    if (!channelData.members) {
+      channelData.members = []
+    }
+    if (channelData.name === channel) {
+      channelData.members.push(user);
+      channelsRef.child(child.key).update({ members: channelData.members });
+
+      const message = JSON.stringify({
+        type: "addedChannelToUser",
+        payload: channelData.name,
+      });
+
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(message);
+        }
+      });
+      return res.status(200).send({ message: "Added channel to user." });
+    }
+  });
+});
+
+app.post("/deleteChannel", async (req, res) => {
+  const { user, channel } = req.body;
+  const channelsRef = db.ref("channels");
+  const snapshot = await channelsRef.once("value");
+
+  snapshot.forEach((child) => {
+    const channelData = child.val();
+    if (channelData.name === channel) {
+      const memberIndex = channelData.members.indexOf(user);
+      channelData.members.splice(memberIndex, 1);
+      channelsRef.child(child.key).update({ members: channelData.members });
+      const message = JSON.stringify({
+        type: "deleteChannelToUser",
+        payload: channelData.name,
+      });
+
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(message);
+        }
+      });
+      return res
+        .status(200)
+        .send({ message: "Deleted channel to user" });
+    }
+  });
+});
+
 app.post("/channels", async (req, res) => {
   const { channelName, creator } = req.body;
   if (!channelName || !creator) {
@@ -305,13 +362,12 @@ app.post("/channels", async (req, res) => {
 
   await channelsRef.child(channelName).set(newChannel);
 
-  // Уведомляем всех подключенных клиентов о новом канале
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(
         JSON.stringify({
           type: "newChannel",
-          payload: newChannel,
+          payload: newChannel.name,
         })
       );
     }

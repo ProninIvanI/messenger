@@ -4,44 +4,92 @@ import { ButtonChannel } from "../ButtonChannel/ButtonChannel";
 import { Search } from "../../Search/Search/Search";
 import { useState } from "react";
 import imageAddChannel from "../../../../../Images/AddChannel.svg";
+import { ButtonAddAndRemoveChannel } from "../ButtonAddAndRemoveChannel/ButtonAddAndRemoveChannel";
 
 export function ListChannel() {
-  const channels = useSelector(
+  const channelsUser = useSelector(
     (state) => state.informationOfChannels.channelsUser
   );
-  const [addChannel, setAddChannel] = useState(false);
+  const allChannels = useSelector(
+    (state) => state.informationOfChannels.channels
+  );
+  const [buttonAddChannel, setButtonAddChannel] = useState(false);
   const [sortedChannels, setSortedChannels] = useState(
     useSelector((state) => state.informationOfChannels.sortedChannelsUser)
   );
-  const handleClick = () => {
-    if (addChannel === false) {
-      setAddChannel(true); 
-    } else if (addChannel === true) {
-      setAddChannel(false); 
+  const currentSearchChannelsUser = useSelector(
+    (state) => state.search.searchChannelUser
+  );
+  const currentSearchAllChannels = useSelector(
+    (state) => state.search.searchChannelAmongAllChannel
+  );
+
+  const [sortedAllChannels, setSortedAllChannels] = useState(
+    useSelector((state) => state.informationOfChannels.sortedChannels)
+  );
+
+  const handleClickAddChannel = () => {
+    if (buttonAddChannel === false) {
+      setButtonAddChannel(true);
+    } else if (buttonAddChannel === true) {
+      setButtonAddChannel(false);
     }
   };
-  const currentSearch = useSelector((state) => state.search.searchChannel);
+
   return (
     <div className={styles.container}>
       <div className={styles.containerUnder}>
-        <Search
-          array={channels}
-          currentSearch={currentSearch}
-          sortedArray={sortedChannels}
-          setSortedArray={setSortedChannels}
-          placeholder={"введите название"}
-          styleContainer={styles.containerSearch}
-        />
-        {sortedChannels && addChannel === false ? (
-          sortedChannels.map((channel) => (
-            <ButtonChannel key={channel} name={channel} />
-          ))
+        {buttonAddChannel === false ? (
+          <>
+            <Search
+              array={channelsUser}
+              currentSearch={currentSearchAllChannels}
+              sortedArray={sortedChannels}
+              setSortedArray={setSortedChannels}
+              placeholder={"введите название"}
+              styleContainer={styles.containerSearch}
+            />
+            {sortedChannels &&
+              sortedChannels.map((channel) => (
+                <ButtonChannel key={channel} name={channel} />
+              ))}
+          </>
         ) : (
-          <div>mem</div>
+          <>
+            <Search
+              array={allChannels}
+              currentSearch={currentSearchChannelsUser}
+              sortedArray={sortedAllChannels}
+              setSortedArray={setSortedAllChannels}
+              placeholder={"введите название"}
+              styleContainer={styles.containerSearch}
+            />
+            {sortedAllChannels &&
+              sortedAllChannels.map((channel) =>
+                channelsUser.includes(channel) ? (
+                  <ButtonAddAndRemoveChannel
+                    key={channel}
+                    name={channel}
+                    isUser={false}
+                  />
+                ) : (
+                  <ButtonAddAndRemoveChannel
+                    key={channel}
+                    name={channel}
+                    isUser={true}
+                  />
+                )
+              )}
+          </>
         )}
       </div>
       <div className={styles.containerUnderButton}>
-        <button className={styles.button} onClick={handleClick}>
+        <button
+          className={`${styles.button} ${
+            buttonAddChannel ? styles.buttonCheck : ""
+          }`}
+          onClick={handleClickAddChannel}
+        >
           <img alt="" src={imageAddChannel} />
         </button>
       </div>

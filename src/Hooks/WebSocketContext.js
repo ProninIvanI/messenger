@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage, loadMessageInStore } from "../Store/Slices/MessagesSlice";
-import { addChannel, addUserOnChannel, deleteUserOnChannel } from "../Store/Slices/InformationOfChannelsSlice";
+import {
+  addChannel,
+  addChannelToUser,
+  addUserOnChannel,
+  deleteChannelToUser,
+  deleteUserOnChannel,
+} from "../Store/Slices/InformationOfChannelsSlice";
 
 const WebSocketContext = createContext();
 
@@ -37,9 +43,13 @@ export const WebSocketProvider = ({ children }) => {
       } else if (data.type === "newMessage") {
         dispatch(addMessage(data.payload));
       } else if (data.type === "addedUserOnChannel") {
-        dispatch(addUserOnChannel(data.payload))
+        dispatch(addUserOnChannel(data.payload));
       } else if (data.type === "removedUserFromChannel") {
-        dispatch(deleteUserOnChannel(data.payload))
+        dispatch(deleteUserOnChannel(data.payload));
+      } else if (data.type === "addedChannelToUser") {
+        dispatch(addChannelToUser(data.payload));
+      } else if (data.type === "deleteChannelToUser") {
+        dispatch(deleteChannelToUser(data.payload));
       } else if (data.error) {
         console.error(data.error);
       }

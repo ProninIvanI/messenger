@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   searchUserOnChannel: "",
   searchUserAtAdded: "",
-  searchChannel: "",
+  searchChannelUser: "",
+  searchChannelAmongAllChannel: "",
 };
 
 const searchSlice = createSlice({
@@ -17,7 +18,10 @@ const searchSlice = createSlice({
       state.searchUserAtAdded = action.payload;
     },
     loadSearchChannel(state, action) {
-      state.searchChannel = action.payload;
+      state.searchChannelUser = action.payload;
+    },
+    loadSearchChannelAmongAllChannel(state, action) {
+      state.searchChannelAmongAllChannel = action.payload;
     },
   },
 });
@@ -26,6 +30,7 @@ export const {
   loadSearchUserOnChannel,
   loadSearchUserAtAdded,
   loadSearchChannel,
+  loadSearchChannelAmongAllChannel,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;
